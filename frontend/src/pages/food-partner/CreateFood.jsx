@@ -58,7 +58,7 @@ const CreateFood = () => {
         formData.append('description', description);
         formData.append("video", videoFile);
 
-        const response = await axios.post(`${API_URL}/api/food`, formData, {
+        const response = await axios.post("https://zomagram.onrender.com/api/food", formData, {
             withCredentials: true,
         })
 
