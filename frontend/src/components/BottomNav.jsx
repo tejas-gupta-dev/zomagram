@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import '../styles/bottom-nav.css';
 import Cookies from "js-cookie";
@@ -8,16 +8,17 @@ const BottomNav = () => {
   const [role, setRole] = useState(null);
   const navigate = useNavigate();
 
+  const location = useLocation();
   useEffect(() => {
     setRole(Cookies.get("role") || null);
-  }, []);
+  }, [location.pathname]);
 
   const handleLogout = async () => {
   try {
     if (role === "user") {
-      await axios.get("/api/auth/user/logout", { withCredentials: true });
+      await axios.get("https://zomagram.onrender.com/api/auth/user/logout", { withCredentials: true });
     } else if (role === "foodpartner") {
-      await axios.get("/api/auth/food-partner/logout", { withCredentials: true });
+      await axios.get("https://zomagram.onrender.com/api/auth/food-partner/logout", { withCredentials: true });
     }
 
     Cookies.remove("role", { secure: true, sameSite: "None" });
