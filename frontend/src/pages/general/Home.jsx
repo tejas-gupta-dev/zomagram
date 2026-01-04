@@ -23,29 +23,86 @@ const Home = () => {
 
 
 
+
     async function likeVideo(item) {
+    const response = await axios.post(
+        "https://zomagram.onrender.com/api/food/like",
+        { foodId: item._id },
+        { withCredentials: true }
+    );
 
-        const response = await axios.post("https://zomagram.onrender.com/api/food/like", { foodId: item._id }, {withCredentials: true})
-
-        if(response.data.like){
-            console.log("Video liked");
-            setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: v.likeCount + 1 } : v))
-        }else{
-            console.log("Video unliked");
-            setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: v.likeCount - 1 } : v))
-        }
-        
+    if (response.data.message.includes("liked")) {
+        setVideos(prev =>
+            prev.map(v =>
+                v._id === item._id
+                    ? { ...v, likeCount: (v.likeCount || 0) + 1 }
+                    : v
+            )
+        );
+    } else {
+        setVideos(prev =>
+            prev.map(v =>
+                v._id === item._id
+                    ? { ...v, likeCount: Math.max((v.likeCount || 1) - 1, 0) }
+                    : v
+            )
+        );
     }
+}
+
+
+
+
+    // async function likeVideo(item) {
+
+    //     const response = await axios.post("https://zomagram.onrender.com/api/food/like", { foodId: item._id }, {withCredentials: true})
+
+    //     if(response.data.like){
+    //         console.log("Video liked");
+    //         setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: v.likeCount + 1 } : v))
+    //     }else{
+    //         console.log("Video unliked");
+    //         setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: v.likeCount - 1 } : v))
+    //     }
+        
+    // }
 
     async function saveVideo(item) {
-        const response = await axios.post("https://zomagram.onrender.com/api/food/save", { foodId: item._id }, { withCredentials: true })
-        
-        if(response.data.save){
-            setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount + 1 } : v))
-        }else{
-            setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount - 1 } : v))
-        }
+    const response = await axios.post(
+        "https://zomagram.onrender.com/api/food/save",
+        { foodId: item._id },
+        { withCredentials: true }
+    );
+
+    if (response.data.message.includes("saved")) {
+        setVideos(prev =>
+            prev.map(v =>
+                v._id === item._id
+                    ? { ...v, savesCount: (v.savesCount || 0) + 1 }
+                    : v
+            )
+        );
+    } else {
+        setVideos(prev =>
+            prev.map(v =>
+                v._id === item._id
+                    ? { ...v, savesCount: Math.max((v.savesCount || 1) - 1, 0) }
+                    : v
+            )
+        );
     }
+}
+
+
+    // async function saveVideo(item) {
+    //     const response = await axios.post("https://zomagram.onrender.com/api/food/save", { foodId: item._id }, { withCredentials: true })
+        
+    //     if(response.data.save){
+    //         setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount + 1 } : v))
+    //     }else{
+    //         setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount - 1 } : v))
+    //     }
+    // }
 
     return (
         <ReelFeed
