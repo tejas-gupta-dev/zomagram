@@ -60,6 +60,27 @@ async function registeruser(req,res) {
     });
 }
 
+
+async function authMe(req, res) {
+  try {
+    const token = req.cookies.token;
+    const role = req.cookies.role;
+
+    if (!token || !role) {
+      return res.status(401).json({ authenticated: false });
+    }
+
+    jwt.verify(token, process.env.JWT_TOKEN);
+
+    return res.status(200).json({
+      authenticated: true,
+      role,
+    });
+  } catch (err) {
+    return res.status(401).json({ authenticated: false });
+  }
+}
+
 async function loginuser(req,res) {
     const { email, password} = req.body;
     const user = await userModel.findOne({email:email})
@@ -240,4 +261,5 @@ module.exports = {
     registerfoodpartner, 
     loginfoodpartner, 
     logoutfoodpartner,
+    authMe,
 }
