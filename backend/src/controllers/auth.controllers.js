@@ -22,8 +22,16 @@ async function registeruser(req,res) {
     const token = jwt.sign({
         id:user._id,
     }, process.env.JWT_TOKEN)
-    res.cookie("token", token);
-    res.cookie("role", "user");
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,        // Render = HTTPS
+    sameSite: "None",    // Cross-domain cookie
+    maxAge: 7 * 24 * 60 * 60 * 1000
+});
+    res.cookie("role", "user", {
+    secure: true,
+    sameSite: "None"
+});
     
     res.status(201).json({message: "user registered",
         user: {
@@ -49,8 +57,16 @@ async function loginuser(req,res) {
     const token = jwt.sign({
         id:user._id,
     }, process.env.JWT_TOKEN)
-    res.cookie("token",token);
-    res.cookie("role", "user");
+    res.cookie("token",token, {
+    httpOnly: true,
+    secure: true,        // Render = HTTPS
+    sameSite: "None",    // Cross-domain cookie
+    maxAge: 7 * 24 * 60 * 60 * 1000
+});
+    res.cookie("role", "user", {
+    secure: true,
+    sameSite: "None"
+});
     res.status(200).json({
         message:"login successfully",
         user: {
@@ -62,7 +78,10 @@ async function loginuser(req,res) {
 }
 
 function logoutuser(req,res) {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+    secure: true,
+    sameSite: "None"
+});
     res.status(200).json({
         message:"user logout successsfully"
     })
@@ -88,8 +107,16 @@ async function registerfoodpartner(req,res) {
     const token = jwt.sign({
         id:foodpartners._id,
     }, process.env.JWT_TOKEN)
-    res.cookie("token",token);
-    res.cookie("role", "foodpartner");
+    res.cookie("token",token, {
+    httpOnly: true,
+    secure: true,        // Render = HTTPS
+    sameSite: "None",    // Cross-domain cookie
+    maxAge: 7 * 24 * 60 * 60 * 1000
+});
+    res.cookie("role", "foodpartner", {
+    secure: true,
+    sameSite: "None"
+});
 
 
     res.status(201).json({message: "registeration successful",
@@ -122,8 +149,16 @@ async function loginfoodpartner(req,res) {
         id: emailfound._id,
     }, process.env.JWT_TOKEN)
 
-    res.cookie("token",token);
-    res.cookie("role", "foodpartner");
+    res.cookie("token",token, {
+    httpOnly: true,
+    secure: true,        // Render = HTTPS
+    sameSite: "None",    // Cross-domain cookie
+    maxAge: 7 * 24 * 60 * 60 * 1000
+});
+    res.cookie("role", "foodpartner", {
+    secure: true,
+    sameSite: "None"
+});
     
     res.status(200).json({
         message: "login successful",
@@ -136,7 +171,10 @@ async function loginfoodpartner(req,res) {
 }
 
 function logoutfoodpartner(req,res) {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+    secure: true,
+    sameSite: "None"
+});
     res.status(200).json({message: "logout successful"});
 }
 
