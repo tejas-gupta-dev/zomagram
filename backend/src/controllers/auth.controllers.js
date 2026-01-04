@@ -29,8 +29,8 @@ async function registeruser(req,res) {
     maxAge: 7 * 24 * 60 * 60 * 1000
 });
     res.cookie("role", "user", {
-    secure: true,
-    sameSite: "None"
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
 });
     
     res.status(201).json({message: "user registered",
@@ -64,8 +64,8 @@ async function loginuser(req,res) {
     maxAge: 7 * 24 * 60 * 60 * 1000
 });
     res.cookie("role", "user", {
-    secure: true,
-    sameSite: "None"
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
 });
     res.status(200).json({
         message:"login successfully",
@@ -79,8 +79,8 @@ async function loginuser(req,res) {
 
 function logoutuser(req,res) {
     res.clearCookie("token", {
-    secure: true,
-    sameSite: "None"
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
 });
     res.status(200).json({
         message:"user logout successsfully"
@@ -114,8 +114,8 @@ async function registerfoodpartner(req,res) {
     maxAge: 7 * 24 * 60 * 60 * 1000
 });
     res.cookie("role", "foodpartner", {
-    secure: true,
-    sameSite: "None"
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
 });
 
 
@@ -156,8 +156,8 @@ async function loginfoodpartner(req,res) {
     maxAge: 7 * 24 * 60 * 60 * 1000
 });
     res.cookie("role", "foodpartner", {
-    secure: true,
-    sameSite: "None"
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
 });
     
     res.status(200).json({
@@ -172,8 +172,8 @@ async function loginfoodpartner(req,res) {
 
 function logoutfoodpartner(req,res) {
     res.clearCookie("token", {
-    secure: true,
-    sameSite: "None"
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
 });
     res.status(200).json({message: "logout successful"});
 }
