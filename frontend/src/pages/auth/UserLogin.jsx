@@ -14,7 +14,7 @@ const UserLogin = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    const response = await axios.post(`${API_URL}/api/auth/user/login`, {
+    const response = await axios.post("https://zomagram.onrender.com/api/auth/user/login", {
       email,
       password
     }, { withCredentials: true });
