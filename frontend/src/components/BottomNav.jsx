@@ -7,13 +7,30 @@ import "../styles/bottom-nav.css";
 
 const BottomNav = () => {
   const [role, setRole] = useState(null);
-
   const navigate = useNavigate();
-  const location = useLocation();
-
   useEffect(() => {
-    setRole(Cookies.get("role") || null);
-  }, [location.pathname]);
+  axios
+    .get("https://zomagram.onrender.com/api/auth/me", {
+      withCredentials: true,
+    })
+    .then((res) => {
+      if (res.data.authenticated) {
+        setRole(res.data.role);
+      } else {
+        setRole(null);
+      }
+    })
+    .catch(() => setRole(null));
+  }, []);
+
+  // const [role, setRole] = useState(null);
+
+  // const navigate = useNavigate();
+  // const location = useLocation();
+
+  // useEffect(() => {
+  //   setRole(Cookies.get("role") || null);
+  // }, [location.pathname]);
 
   const handleLogout = async () => {
     try {
