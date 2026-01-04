@@ -1,142 +1,212 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import '../styles/bottom-nav.css';
 import Cookies from "js-cookie";
+
+import "../styles/bottom-nav.css";
 
 const BottomNav = () => {
   const [role, setRole] = useState(null);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const location = useLocation();
+
   useEffect(() => {
     setRole(Cookies.get("role") || null);
   }, [location.pathname]);
 
   const handleLogout = async () => {
-  try {
-    if (role === "user") {
-      await axios.get("https://zomagram.onrender.com/api/auth/user/logout", { withCredentials: true });
-    } else if (role === "foodpartner") {
-      await axios.get("https://zomagram.onrender.com/api/auth/food-partner/logout", { withCredentials: true });
+    try {
+      if (role === "user") {
+        await axios.get(
+          "https://zomagram.onrender.com/api/auth/user/logout",
+          { withCredentials: true }
+        );
+      } else if (role === "foodpartner") {
+        await axios.get(
+          "https://zomagram.onrender.com/api/auth/food-partner/logout",
+          { withCredentials: true }
+        );
+      }
+
+      Cookies.remove("role", { secure: true, sameSite: "None" });
+      setRole(null);
+      navigate("/home");
+    } catch (err) {
+      console.error("Logout failed", err);
     }
-
-    Cookies.remove("role", { secure: true, sameSite: "None" });
-    setRole(null);   
-    navigate("/home");
-  } catch (err) {
-    console.error("Logout failed", err);
-  }
-};
-
-  
+  };
 
   return (
     <nav className="bottom-nav" role="navigation" aria-label="Bottom">
       <div className="bottom-nav__inner">
-
         {!role && (
-  <>
-    <NavLink to="/user/register">Register</NavLink>
-    <NavLink to="/user/login">Login</NavLink>
-  </>
-)}
-
-{role === "user" && (
-  <>
-    <NavLink to="/saved">Saved</NavLink>
-    <button onClick={handleLogout}>Logout</button>
-  </>
-)}
-
-{role === "foodpartner" && (
-  <>
-    <NavLink to="/create-food">Create</NavLink>
-    <NavLink to="/food-partner/profile">Profile</NavLink>
-    <button onClick={handleLogout}>Logout</button>
-  </>
-)}
-
-
-        
-        {/* <NavLink to="/home" end className={({ isActive }) =>
-          `bottom-nav__item ${isActive ? 'is-active' : ''}`
-        }>
-          <span className="bottom-nav__icon">🏠</span>
-          <span className="bottom-nav__label">Home</span>
-        </NavLink>
-        {role === undefined && (
           <>
-            <NavLink to="/register" className={({ isActive }) =>
-              `bottom-nav__item ${isActive ? 'is-active' : ''}`
-            }>
-              <span className="bottom-nav__icon">📝</span>
-              <span className="bottom-nav__label">Register</span>
-            </NavLink>
-
+            <NavLink to="/user/register">Register</NavLink>
+            <NavLink to="/user/login">Login</NavLink>
           </>
         )}
 
-        
-          <NavLink to="/saved" className={({ isActive }) =>
-            `bottom-nav__item ${isActive ? 'is-active' : ''}`
-          }>
-            <span className="bottom-nav__icon">🔖</span>
-            <span className="bottom-nav__label">Saved</span>
-          </NavLink>
-        
-
-        
-        {role === "foodpartner" && (
-          <>
-            <NavLink to="/create-food" className={({ isActive }) =>
-              `bottom-nav__item ${isActive ? 'is-active' : ''}`
-            }>
-              <span className="bottom-nav__icon">➕</span>
-              <span className="bottom-nav__label">Create</span>
-            </NavLink>
-
-            <NavLink to="/food-partner/profile" className={({ isActive }) =>
-              `bottom-nav__item ${isActive ? 'is-active' : ''}`
-            }>
-              <span className="bottom-nav__icon">👤</span>
-              <span className="bottom-nav__label">Profile</span>
-            </NavLink>
-
-            <button onClick={handleLogout} className="bottom-nav__item" style={{ border: "none", background: "none" }}>
-              <span className="bottom-nav__icon">🚪</span>
-              <span className="bottom-nav__label">Logout</span>
-            </button>
-          </>
-        )}
-
-        
         {role === "user" && (
           <>
-            <NavLink to="/user/register" className={({ isActive }) =>
-              `bottom-nav__item ${isActive ? 'is-active' : ''}`
-            }>
-              <span className="bottom-nav__icon">📝</span>
-              <span className="bottom-nav__label">Register</span>
-            </NavLink>
-
-            <NavLink to="/user/login" className={({ isActive }) =>
-              `bottom-nav__item ${isActive ? 'is-active' : ''}`
-            }>
-              <span className="bottom-nav__icon">🔑</span>
-              <span className="bottom-nav__label">Login</span>
-            </NavLink>
-
-            <button onClick={handleLogout} className="bottom-nav__item" style={{ border: "none", background: "none" }}>
-              <span className="bottom-nav__icon">🚪</span>
-              <span className="bottom-nav__label">Logout</span>
-            </button>
+            <NavLink to="/saved">Saved</NavLink>
+            <button onClick={handleLogout}>Logout</button>
           </>
-        )} */}
+        )}
 
+        {role === "foodpartner" && (
+          <>
+            <NavLink to="/create-food">Create</NavLink>
+            <NavLink to="/food-partner/profile">Profile</NavLink>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        )}
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default BottomNav
+export default BottomNav;
+
+
+// import React, { useEffect, useState } from 'react'
+// import { NavLink, useNavigate, useLocation } from "react-router-dom";
+// import axios from "axios";
+// import '../styles/bottom-nav.css';
+// import Cookies from "js-cookie";
+
+// const BottomNav = () => {
+//   const [role, setRole] = useState(null);
+//   const navigate = useNavigate();
+
+//   const location = useLocation();
+//   useEffect(() => {
+//     setRole(Cookies.get("role") || null);
+//   }, [location.pathname]);
+
+//   const handleLogout = async () => {
+//   try {
+//     if (role === "user") {
+//       await axios.get("https://zomagram.onrender.com/api/auth/user/logout", { withCredentials: true });
+//     } else if (role === "foodpartner") {
+//       await axios.get("https://zomagram.onrender.com/api/auth/food-partner/logout", { withCredentials: true });
+//     }
+
+//     Cookies.remove("role", { secure: true, sameSite: "None" });
+//     setRole(null);   
+//     navigate("/home");
+//   } catch (err) {
+//     console.error("Logout failed", err);
+//   }
+// };
+
+  
+
+//   return (
+//     <nav className="bottom-nav" role="navigation" aria-label="Bottom">
+//       <div className="bottom-nav__inner">
+//         {!role && (
+//         <>
+//           <NavLink to="/user/register">Register</NavLink>
+//           <NavLink to="/user/login">Login</NavLink>
+//         </>
+// )}
+
+// {role === "user" && (
+//   <>
+//     <NavLink to="/saved">Saved</NavLink>
+//     <button onClick={handleLogout}>Logout</button>
+//   </>
+// )}
+
+// {role === "foodpartner" && (
+//   <>
+//     <NavLink to="/create-food">Create</NavLink>
+//     <NavLink to="/food-partner/profile">Profile</NavLink>
+//     <button onClick={handleLogout}>Logout</button>
+//   </>
+// )}
+
+
+        
+//         {/* <NavLink to="/home" end className={({ isActive }) =>
+//           `bottom-nav__item ${isActive ? 'is-active' : ''}`
+//         }>
+//           <span className="bottom-nav__icon">🏠</span>
+//           <span className="bottom-nav__label">Home</span>
+//         </NavLink>
+//         {role === undefined && (
+//           <>
+//             <NavLink to="/register" className={({ isActive }) =>
+//               `bottom-nav__item ${isActive ? 'is-active' : ''}`
+//             }>
+//               <span className="bottom-nav__icon">📝</span>
+//               <span className="bottom-nav__label">Register</span>
+//             </NavLink>
+
+//           </>
+//         )}
+
+        
+//           <NavLink to="/saved" className={({ isActive }) =>
+//             `bottom-nav__item ${isActive ? 'is-active' : ''}`
+//           }>
+//             <span className="bottom-nav__icon">🔖</span>
+//             <span className="bottom-nav__label">Saved</span>
+//           </NavLink>
+        
+
+        
+//         {role === "foodpartner" && (
+//           <>
+//             <NavLink to="/create-food" className={({ isActive }) =>
+//               `bottom-nav__item ${isActive ? 'is-active' : ''}`
+//             }>
+//               <span className="bottom-nav__icon">➕</span>
+//               <span className="bottom-nav__label">Create</span>
+//             </NavLink>
+
+//             <NavLink to="/food-partner/profile" className={({ isActive }) =>
+//               `bottom-nav__item ${isActive ? 'is-active' : ''}`
+//             }>
+//               <span className="bottom-nav__icon">👤</span>
+//               <span className="bottom-nav__label">Profile</span>
+//             </NavLink>
+
+//             <button onClick={handleLogout} className="bottom-nav__item" style={{ border: "none", background: "none" }}>
+//               <span className="bottom-nav__icon">🚪</span>
+//               <span className="bottom-nav__label">Logout</span>
+//             </button>
+//           </>
+//         )}
+
+        
+//         {role === "user" && (
+//           <>
+//             <NavLink to="/user/register" className={({ isActive }) =>
+//               `bottom-nav__item ${isActive ? 'is-active' : ''}`
+//             }>
+//               <span className="bottom-nav__icon">📝</span>
+//               <span className="bottom-nav__label">Register</span>
+//             </NavLink>
+
+//             <NavLink to="/user/login" className={({ isActive }) =>
+//               `bottom-nav__item ${isActive ? 'is-active' : ''}`
+//             }>
+//               <span className="bottom-nav__icon">🔑</span>
+//               <span className="bottom-nav__label">Login</span>
+//             </NavLink>
+
+//             <button onClick={handleLogout} className="bottom-nav__item" style={{ border: "none", background: "none" }}>
+//               <span className="bottom-nav__icon">🚪</span>
+//               <span className="bottom-nav__label">Logout</span>
+//             </button>
+//           </>
+//         )} */}
+
+//       </div>
+//     </nav>
+//   )
+// }
+
+// export default BottomNav
