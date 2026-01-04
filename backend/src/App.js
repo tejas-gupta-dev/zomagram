@@ -9,7 +9,7 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors({
-    origin: "https://zomagram.vercel.app/",
+    origin: "https://zomagram.vercel.app",
     credentials: true
 }));
 app.use(express.json());
