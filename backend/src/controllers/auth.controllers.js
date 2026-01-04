@@ -30,26 +30,26 @@ async function registeruser(req,res) {
     const token = jwt.sign({
         id:user._id,
     }, process.env.JWT_TOKEN)
-    res.cookie("token", token, {
-    ...cookieOptions,
-    httpOnly: true,
-  });
+  //   res.cookie("token", token, {
+  //   ...cookieOptions,
+  //   httpOnly: true,
+  // });
 
-  // 🔥 ROLE COOKIE (frontend readable)
-  res.cookie("role", "user", {
-    ...cookieOptions,
-    httpOnly: false,
-  });
-//     res.cookie("token", token, {
-//     httpOnly: true,
-//     secure: true,        // Render = HTTPS
-//     sameSite: "None",    // Cross-domain cookie
-//     maxAge: 7 * 24 * 60 * 60 * 1000
-// });
-//     res.cookie("role", "user", {
-//   secure: process.env.NODE_ENV === "production",
-//   sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-// });
+  // // 🔥 ROLE COOKIE (frontend readable)
+  // res.cookie("role", "user", {
+  //   ...cookieOptions,
+  //   httpOnly: false,
+  // });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,        // Render = HTTPS
+      sameSite: "None",    // Cross-domain cookie
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+    res.cookie("role", "user", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    });
     
     res.status(201).json({message: "user registered",
         user: {
@@ -96,26 +96,26 @@ async function loginuser(req,res) {
     const token = jwt.sign({
         id:user._id,
     }, process.env.JWT_TOKEN)
-    res.cookie("token", token, {
-    ...cookieOptions,
-    httpOnly: true,
-  });
+  //   res.cookie("token", token, {
+  //   ...cookieOptions,
+  //   httpOnly: true,
+  // });
 
-  // 🔥 ROLE COOKIE (frontend readable)
-  res.cookie("role", "user", {
-    ...cookieOptions,
-    httpOnly: false,
-  });
-//     res.cookie("token",token, {
-//     httpOnly: true,
-//     secure: true,        // Render = HTTPS
-//     sameSite: "None",    // Cross-domain cookie
-//     maxAge: 7 * 24 * 60 * 60 * 1000
-// });
-//     res.cookie("role", "user", {
-//   secure: process.env.NODE_ENV === "production",
-//   sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-// });
+  // // 🔥 ROLE COOKIE (frontend readable)
+  // res.cookie("role", "user", {
+  //   ...cookieOptions,
+  //   httpOnly: false,
+  // });
+    res.cookie("token",token, {
+      httpOnly: true,
+      secure: true,        // Render = HTTPS
+      sameSite: "None",    // Cross-domain cookie
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+    res.cookie("role", "user", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    });
     res.status(200).json({
         message:"login successfully",
         user: {
@@ -127,12 +127,16 @@ async function loginuser(req,res) {
 }
 
 function logoutuser(req,res) {
-    res.clearCookie("token", cookieOptions);
-  res.clearCookie("role", cookieOptions);
-//     res.clearCookie("token", {
-//   secure: process.env.NODE_ENV === "production",
-//   sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-// });
+  //   res.clearCookie("token", cookieOptions);
+  // res.clearCookie("role", cookieOptions);
+    res.clearCookie("token", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    });
+    res.clearCookie("role", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    });
     res.status(200).json({
         message:"user logout successsfully"
     })
@@ -159,25 +163,25 @@ async function registerfoodpartner(req,res) {
         id:foodpartners._id,
     }, process.env.JWT_TOKEN)
 
-    res.cookie("token", token, {
-        ...cookieOptions,
-        httpOnly: true,
-    });
+   //  res.cookie("token", token, {
+   //      ...cookieOptions,
+   //      httpOnly: true,
+   //  });
 
-   res.cookie("role", "foodpartner", {
-       ...cookieOptions,
-       httpOnly: false,
-   });
-//     res.cookie("token",token, {
-//     httpOnly: true,
-//     secure: true,        // Render = HTTPS
-//     sameSite: "None",    // Cross-domain cookie
-//     maxAge: 7 * 24 * 60 * 60 * 1000
-// });
-//     res.cookie("role", "foodpartner", {
-//   secure: process.env.NODE_ENV === "production",
-//   sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-// });
+   // res.cookie("role", "foodpartner", {
+   //     ...cookieOptions,
+   //     httpOnly: false,
+   // });
+    res.cookie("token",token, {
+      httpOnly: true,
+      secure: true,        // Render = HTTPS
+      sameSite: "None",    // Cross-domain cookie
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+    res.cookie("role", "foodpartner", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    });
 
 
     res.status(201).json({message: "registeration successful",
@@ -211,27 +215,27 @@ async function loginfoodpartner(req,res) {
     }, process.env.JWT_TOKEN)
 
 
-    res.cookie("token", token, {
-    ...cookieOptions,
-    httpOnly: true,
-  });
+  //   res.cookie("token", token, {
+  //   ...cookieOptions,
+  //   httpOnly: true,
+  // });
 
-  res.cookie("role", "foodpartner", {
-    ...cookieOptions,
-    httpOnly: false,
-  });
+  // res.cookie("role", "foodpartner", {
+  //   ...cookieOptions,
+  //   httpOnly: false,
+  // });
 
-//     res.cookie("token",token, {
-//     httpOnly: true,
-//     secure: true,        // Render = HTTPS
-//     sameSite: "None",    // Cross-domain cookie
-//     maxAge: 7 * 24 * 60 * 60 * 1000
-// });
-//     res.cookie("role", "foodpartner", {
-//   secure: process.env.NODE_ENV === "production",
-//   sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-// });
-    
+    res.cookie("token",token, {
+      httpOnly: true,
+      secure: true,        // Render = HTTPS
+      sameSite: "None",    // Cross-domain cookie
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+    res.cookie("role", "foodpartner", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    });
+
     res.status(200).json({
         message: "login successful",
         foodpartner: {
@@ -243,12 +247,16 @@ async function loginfoodpartner(req,res) {
 }
 
 function logoutfoodpartner(req,res) {
-    res.clearCookie("token", cookieOptions);
-    res.clearCookie("role", cookieOptions);
-//     res.clearCookie("token", {
-//   secure: process.env.NODE_ENV === "production",
-//   sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-// });
+    // res.clearCookie("token", cookieOptions);
+    // res.clearCookie("role", cookieOptions);
+    res.clearCookie("token", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    });
+  res.clearCookie("role", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    });
     res.status(200).json({message: "logout successful"});
 }
 
