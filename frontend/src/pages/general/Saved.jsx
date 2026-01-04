@@ -8,7 +8,7 @@ const Saved = () => {
     const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
 
     useEffect(() => {
-        axios.get(`${API_URL}/api/food/save`, { withCredentials: true })
+        axios.get("https://zomagram.onrender.com/api/food/save", { withCredentials: true })
             .then(response => {
                 const savedFoods = response.data.savedFoods.map((item) => ({
                     _id: item.food._id,
@@ -25,7 +25,7 @@ const Saved = () => {
 
     const removeSaved = async (item) => {
         try {
-            await axios.post(`${API_URL}/api/food/save`, { foodId: item._id }, { withCredentials: true })
+            await axios.post("https://zomagram.onrender.com/api/food/save", { foodId: item._id }, { withCredentials: true })
             setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: Math.max(0, (v.savesCount ?? 1) - 1) } : v))
         } catch {
             // noop
