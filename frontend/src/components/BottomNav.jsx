@@ -13,26 +13,21 @@ const BottomNav = () => {
   }, []);
 
   const handleLogout = async () => {
-    try {
-      if (role === "user") {
-        await axios.get("https://zomagram.onrender.com/api/auth/user/logout", {
-          withCredentials: true,
-        });
-      } else if (role === "foodpartner") {
-        await axios.get("https://zomagram.onrender.com/api/auth/food-partner/logout", {
-          withCredentials: true,
-        });
-      }
-
-      
-      Cookies.remove("role");
-
-    
-      navigate("/");
-    } catch (err) {
-      console.error("Logout failed", err);
+  try {
+    if (role === "user") {
+      await axios.get("/api/auth/user/logout", { withCredentials: true });
+    } else if (role === "foodpartner") {
+      await axios.get("/api/auth/food-partner/logout", { withCredentials: true });
     }
-  };
+
+    Cookies.remove("role", { secure: true, sameSite: "None" });
+    setRole(null);   
+    navigate("/home");
+  } catch (err) {
+    console.error("Logout failed", err);
+  }
+};
+
   
 
   return (
