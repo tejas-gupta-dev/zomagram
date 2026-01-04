@@ -8,10 +8,11 @@ const LandingPage = () => {
   const role = Cookies.get("role");
 
   const handleEnter = () => {
-    if(role===undefined){
-        navigate("/register");
+    if (!role) {
+      navigate("/register");
+      return;
     }
-    navigate("/home"); 
+    navigate("/home");
   };
 
   return (
