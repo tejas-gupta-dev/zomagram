@@ -5,10 +5,12 @@ import '../styles/bottom-nav.css';
 import Cookies from "js-cookie";
 
 const BottomNav = () => {
-  const role = Cookies.get("role");
-
-  
+  const [role, setRole] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setRole(Cookies.get("role") || null);
+  }, []);
 
   const handleLogout = async () => {
     try {
