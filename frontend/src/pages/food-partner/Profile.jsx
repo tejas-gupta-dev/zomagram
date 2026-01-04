@@ -10,7 +10,7 @@ const Profile = () => {
     const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
 
     useEffect(() => {
-        axios.get("https://zomagram.onrender.com/api/food-partner/${id}", { withCredentials: true })
+        axios.get(`https://zomagram.onrender.com/api/food-partner/${id}`, { withCredentials: true })
             .then(response => {
                 setProfile(response.data.foodpartners)
                 setVideos(response.data.foodpartners.foodItems)
