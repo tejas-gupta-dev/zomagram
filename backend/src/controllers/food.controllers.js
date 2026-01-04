@@ -12,7 +12,7 @@ async function createfood(req,res) {
         name: req.body.name,
         description: req.body.description,
         video: resultnew.url,
-        foodpartners: req.foodpartner._id,
+        foodpartners: req.foodpartners._id,
     })
     res.status(201).json({
         message: "fooditem created",
