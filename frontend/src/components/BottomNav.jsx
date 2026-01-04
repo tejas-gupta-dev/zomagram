@@ -59,23 +59,40 @@ const BottomNav = () => {
       <div className="bottom-nav__inner">
         {!role && (
           <>
-            <NavLink to="/user/register">Register</NavLink>
+            <NavLink to="/register" className={({ isActive }) =>`bottom-nav__item ${isActive ? 'is-active' : ''}`}>
+              <span className="bottom-nav__icon">📝</span>
+              <span className="bottom-nav__label">Register</span>
+            </NavLink>
+
+
             <NavLink to="/user/login">Login</NavLink>
           </>
         )}
 
         {role === "user" && (
           <>
-            <NavLink to="/saved">Saved</NavLink>
-            <button onClick={handleLogout}>Logout</button>
+            <NavLink to="/home" end className={({ isActive }) =>`bottom-nav__item ${isActive ? 'is-active' : ''}`}>
+              <span className="bottom-nav__icon">🏠</span>
+              <span className="bottom-nav__label">Home</span>
+            </NavLink>
+            <NavLink to="/saved" className={({ isActive }) =>`bottom-nav__item ${isActive ? 'is-active' : ''}`}>
+              <span className="bottom-nav__icon">🔖</span>
+              <span className="bottom-nav__label">Saved</span>
+            </NavLink>
+            <button onClick={handleLogout} className="bottom-nav__label">Logout</button>
           </>
         )}
 
         {role === "foodpartner" && (
           <>
             <NavLink to="/create-food">Create</NavLink>
-            <NavLink to="/food-partner/profile">Profile</NavLink>
-            <button onClick={handleLogout}>Logout</button>
+            
+            <NavLink to="/food-partner/profile" className={({ isActive }) =>`bottom-nav__item ${isActive ? 'is-active' : ''}`
+  }>
+              <span className="bottom-nav__icon">👤</span>
+              <span className="bottom-nav__label">Profile</span>
+            </NavLink>
+            <button onClick={handleLogout} className="bottom-nav__label">Logout</button>
           </>
         )}
       </div>
@@ -165,12 +182,12 @@ export default BottomNav;
 //         )}
 
         
-//           <NavLink to="/saved" className={({ isActive }) =>
-//             `bottom-nav__item ${isActive ? 'is-active' : ''}`
-//           }>
-//             <span className="bottom-nav__icon">🔖</span>
-//             <span className="bottom-nav__label">Saved</span>
-//           </NavLink>
+          // <NavLink to="/saved" className={({ isActive }) =>
+          //   `bottom-nav__item ${isActive ? 'is-active' : ''}`
+          // }>
+          //   <span className="bottom-nav__icon">🔖</span>
+          //   <span className="bottom-nav__label">Saved</span>
+          // </NavLink>
         
 
         
