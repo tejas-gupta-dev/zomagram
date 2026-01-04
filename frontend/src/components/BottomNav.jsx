@@ -34,8 +34,31 @@ const BottomNav = () => {
     <nav className="bottom-nav" role="navigation" aria-label="Bottom">
       <div className="bottom-nav__inner">
 
+        {!role && (
+  <>
+    <NavLink to="/user/register">Register</NavLink>
+    <NavLink to="/user/login">Login</NavLink>
+  </>
+)}
+
+{role === "user" && (
+  <>
+    <NavLink to="/saved">Saved</NavLink>
+    <button onClick={handleLogout}>Logout</button>
+  </>
+)}
+
+{role === "foodpartner" && (
+  <>
+    <NavLink to="/create-food">Create</NavLink>
+    <NavLink to="/food-partner/profile">Profile</NavLink>
+    <button onClick={handleLogout}>Logout</button>
+  </>
+)}
+
+
         
-        <NavLink to="/home" end className={({ isActive }) =>
+        {/* <NavLink to="/home" end className={({ isActive }) =>
           `bottom-nav__item ${isActive ? 'is-active' : ''}`
         }>
           <span className="bottom-nav__icon">🏠</span>
@@ -108,7 +131,7 @@ const BottomNav = () => {
               <span className="bottom-nav__label">Logout</span>
             </button>
           </>
-        )}
+        )} */}
 
       </div>
     </nav>
